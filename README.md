@@ -35,7 +35,7 @@ Before running this application, make sure you have:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/henri-tabaku/expense-tracker.git
+git clone https://github.com/IldaBiba/ExpenseTracker.git
 cd expense-tracker
 ```
 
