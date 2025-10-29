@@ -1,29 +1,21 @@
-// src/services/categoryApi.js
 import api from "./api";
 
-/**
- * Get all categories for the current user
- */
 export async function getCategories() {
   const email = localStorage.getItem("userEmail");
   if (!email) throw new Error("User email not found in localStorage");
-  return await api.get(`categories/${email}`); // backend expects /:email
+  const res = await api.get(`categories/${email}`); // response body (e.g. { ok: true, data: [...] })
+  return res.data;
 }
 
-/**
- * Add a new category
- * category = { name }
- */
 export async function addCategory(category) {
   const email = localStorage.getItem("userEmail");
   if (!email) throw new Error("User email not found in localStorage");
 
-  return await api.post("categories", { ...category, email });
+  const res = await api.post("categories", { ...category, email });
+  return res.data;
 }
 
-/**
- * Delete a category by id
- */
 export async function deleteCategory(id) {
-  return await api.delete(`categories/${id}`);
+  const res = await api.delete(`categories/${id}`);
+  return res.data;
 }

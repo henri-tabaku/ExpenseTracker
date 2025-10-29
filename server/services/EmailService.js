@@ -1,8 +1,5 @@
-// emailService.js
 import { Resend } from "resend";
-
-// Initialize Resend with your API key
-const resend = new Resend("re_R8surxZh_JS1UVDhPncvwMgWuSeCR95Ar");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 /**
  * Send an email using Resend
@@ -13,8 +10,8 @@ const resend = new Resend("re_R8surxZh_JS1UVDhPncvwMgWuSeCR95Ar");
 export async function sendEmail(to, subject, html) {
   try {
     const data = await resend.emails.send({
-      from: "Expense Tracker <Email_API_Key@resend.dev>", // You can change this to your verified sender
-      to,
+      from: "Acme <onboarding@resend.dev>",
+      to: "ildabiba6@gmail.com",  //Because I can only send testing emails to my own email address (ildabiba6@gmail.com) without a verified domain
       subject,
       html,
     });

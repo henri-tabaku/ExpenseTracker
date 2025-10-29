@@ -1,29 +1,20 @@
-// src/pages/Dashboard.jsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Categories from "../components/Categories";
 import Expenses from "../components/Expenses";
 import AddCategoryForm from "../components/AddCategoryForm";
 import AddExpenseForm from "../components/AddExpenseForm";
-import { deleteCategory } from "../services/categoryApi";
-import { deleteExpense } from "../services/expenseApi";
+import { useCategories } from "../hooks/useCategories";
+import { useExpenses } from "../hooks/useExpenses";
+// import { deleteCategory } from "../services/categoryApi";
+// import { deleteExpense } from "../services/expenseApi";
 
 export default function Dashboard() {
-  const [categories, setCategories] = useState([]);
-  const [expenses, setExpenses] = useState([]);
+  const [categories, setCategories] = useCategories([]);
+  const [expenses, setExpenses] = useExpenses([]);
   const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [showExpenseForm, setShowExpenseForm] = useState(false);
 
-  useEffect(() => {
-    
-    const fetchData = async () => {
-      const cats = await import("../services/categoryApi").then((mod) => mod.getCategories());
-      setCategories(cats);
-      const exps = await import("../services/expenseApi").then((mod) => mod.getExpenses());
-      setExpenses(exps);
-    };
-    fetchData();
-  }, []);
 
   return (
     <Container className="mt-5">

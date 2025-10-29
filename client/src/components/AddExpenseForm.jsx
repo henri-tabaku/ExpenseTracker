@@ -6,7 +6,7 @@ import { getCategories } from "../services/categoryApi";
 
 export default function AddExpenseForm({ onSuccess }) {
   const [categories, setCategories] = useState([]);
-  const [form, setForm] = useState({ title: "", amount: "", category: "" });
+  const [form, setForm] = useState({ description: "", amount: "", categoryId: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -35,8 +35,8 @@ export default function AddExpenseForm({ onSuccess }) {
       if (!userEmail) throw new Error("User email not found");
 
       const newExp = await addExpense({ ...form, userEmail });
-      onSuccess(newExp);
-      setForm({ title: "", amount: "", category: "" });
+      onSuccess(newExp?.data);
+      setForm({ description: "", amount: "", categoryId: "" });
     } catch (err) {
       setError(err.response?.data?.message || err.message);
     } finally {
@@ -47,9 +47,9 @@ export default function AddExpenseForm({ onSuccess }) {
   return (
     <Form className="d-flex flex-wrap gap-2 mb-3 align-items-center" onSubmit={handleSubmit}>
       <Form.Control
-        name="title"
-        placeholder="Title"
-        value={form.title}
+        name="description"
+        placeholder="description"
+        value={form.description}
         onChange={handleChange}
         required
         style={{ minWidth: 150 }}
@@ -64,15 +64,15 @@ export default function AddExpenseForm({ onSuccess }) {
         style={{ minWidth: 100 }}
       />
       <Form.Select
-        name="category"
-        value={form.category}
+        name="categoryId"
+        value={form.categoryId}
         onChange={handleChange}
         required
         style={{ minWidth: 150 }}
       >
         <option value="">Select Category</option>
         {categories.map((c) => (
-          <option key={c._id} value={c.name}>{c.name}</option>
+          <option key={c._id} value={c._id}>{c.name}</option>
         ))}
       </Form.Select>
       <Button type="submit" variant="primary" disabled={loading || !categories.length}>
